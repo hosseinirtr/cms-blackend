@@ -16,15 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from articles import views
+from articles import views, urls
 from .views import SuperuserAuthView
+
+
 router = DefaultRouter()
-router.register(r'posts', views.PostViewSet, )
+router.register(
+    r"api/posts",
+    views.PostViewSet,
+)
 # router.register(r'auth', SuperuserAuthView)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api/auth/superuser/', SuperuserAuthView.as_view(), name='superuser-auth'),
+    path("", include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("articles/", urls),
+    path("api/auth/superuser/", SuperuserAuthView.as_view(), name="superuser-auth"),
 ]
