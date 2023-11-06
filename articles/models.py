@@ -26,6 +26,9 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag)
     created_at = models.DateField(auto_now_add=True)
     is_fa = models.BooleanField(default=False)
+    image = models.ImageField(
+        upload_to="post_images/", null=True
+    )  # Use ImageField for images
 
     def __str__(self) -> str:
         return f"{self.title} at {self.date}"

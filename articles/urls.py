@@ -13,7 +13,7 @@ app_name = "articles"
 #     admin.site.register(model)
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("add", views.add, name="add"),
-    path("delete", views.add, name="add"),
+    path("", views.PostViewSet, name="index"),
+    path("add", views.PostViewSet, name="add"),
+    path("delete", views.PostViewSet, name="add"),
 ]

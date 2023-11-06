@@ -16,8 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from articles import views, urls
-from .views import SuperuserAuthView
+from articles import views
+
+# , urls
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+from .views import SuperuserAuthViewSet
 
 
 router = DefaultRouter()
@@ -25,12 +31,21 @@ router.register(
     r"api/posts",
     views.PostViewSet,
 )
-# router.register(r'auth', SuperuserAuthView)
+router.register(
+    r"api/tags",
+    views.TagViewSet,
+)
+# Tag TagViewSet
+# router.register(r"auth", SuperuserAuthViewSet)
 
 
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    path("articles/", urls),
-    path("api/auth/superuser/", SuperuserAuthView.as_view(), name="superuser-auth"),
+    # path("articles/", urls),
+    path("api/auth/superuser/", SuperuserAuthViewSet.as_view(), name="superuser-auth"),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
