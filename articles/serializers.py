@@ -1,15 +1,6 @@
 from rest_framework import serializers
+
 from .models import Post, Tag
-
-
-class PostSerializers(serializers.ModelSerializer):
-    tags = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Tag.objects.all(), allow_empty=True
-    )
-
-    class Meta:
-        model = Post
-        fields = ["id", "title", "content", "slug", "tags", "created_at", "image"]
 
 
 class TagSerializers(serializers.ModelSerializer):
@@ -21,3 +12,11 @@ class TagSerializers(serializers.ModelSerializer):
             "title",
             "parent",
         ]
+
+
+class PostSerializers(serializers.ModelSerializer):
+    tags = TagSerializers(many=True, read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ["id", "title", "content", "slug", "tags", "created_at", "image", "og_description", ]

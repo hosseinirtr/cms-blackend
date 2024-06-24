@@ -1,11 +1,12 @@
 from .models import Post, Tag
+from django.contrib import admin
 from .serializers import PostSerializers, TagSerializers
 from rest_framework import viewsets
 from rest_framework.mixins import DestroyModelMixin
 
 
 from rest_framework.authentication import SessionAuthentication
-from blogDjnago.utils import IsAuthenticatedForPostOnly
+from blogDjango.utils import IsAuthenticatedForPostOnly
 
 
 class PostViewSet(viewsets.ModelViewSet):

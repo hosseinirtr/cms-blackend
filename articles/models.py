@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+
 
 # Create your models here.
 
@@ -25,10 +25,14 @@ class Post(models.Model):
     slug = models.CharField(max_length=62)
     tags = models.ManyToManyField(Tag)
     created_at = models.DateField(auto_now_add=True)
-    is_fa = models.BooleanField(default=False)
+    update_at = models.DateField(auto_now_add=True)
+    is_en = models.BooleanField(default=True)
+
+    og_description = models.TextField(max_length=164)
+
     image = models.ImageField(
         upload_to="post_images/", null=True
     )  # Use ImageField for images
 
     def __str__(self) -> str:
-        return f"{self.title} at {self.date}"
+        return f"{self.title} at {self.created_at}"

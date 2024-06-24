@@ -29,6 +29,9 @@ class SuperuserAuthViewSet(APIView):
             )
 
     def get(self, request):
+        user = request.user
         if request.user.is_authenticated:
             serializer = UserSerializer(user)
             return Response(serializer.data)
+        else:
+            return status.HTTP_400_BAD_REQUEST

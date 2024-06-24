@@ -1,4 +1,4 @@
-"""blogDjnago URL Configuration
+"""blogDjango URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -42,9 +43,10 @@ router.register(
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    # path("articles/", urls),
     path("api/auth/superuser/", SuperuserAuthViewSet.as_view(), name="superuser-auth"),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/posts", views.PostViewSet.as_view({"get": "list"}), name="Post"),
+    path("api/tags", views.TagViewSet.as_view({"get": "list"}), name="tag"),
 ]
 
 if settings.DEBUG:
