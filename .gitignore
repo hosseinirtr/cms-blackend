@@ -1,6 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,node
 
+
+### User 
+.idea/
+.vscode/
+
+
 ### Django ###
 *.log
 *.pot
