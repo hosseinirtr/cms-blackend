@@ -6,17 +6,15 @@ from .models import Post, Tag
 class TagSerializers(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = [
-            "id",
-            "slug",
-            "title",
-            "parent",
-        ]
+        fields = "__all__"
 
 
 class PostSerializers(serializers.ModelSerializer):
-    tags = TagSerializers(many=True, read_only=True)
+    tags = serializers.PrimaryKeyRelatedField(
+        queryset=Tag.objects.all(), many=True
+    )  # Use PrimaryKeyRelatedField for Many-to-Many field
+    author = serializers.StringRelatedField()
 
     class Meta:
         model = Post
-        fields = ["id", "title", "content", "slug", "tags", "created_at", "image", "og_description", ]
+        fields = "__all__"

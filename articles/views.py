@@ -14,7 +14,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializers
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticatedForPostOnly]
-
+    
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()

@@ -7,9 +7,6 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth.models import User
 
-# Create your views here.
-
-
 class SuperuserAuthViewSet(APIView):
     serializer_class = LoginSerializer
     queryset = User.objects.all()
